@@ -14,6 +14,8 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Jason Song(song_s@ctrip.com)
@@ -90,6 +92,14 @@ public class HttpUtil {
 
       conn.setConnectTimeout(connectTimeout);
       conn.setReadTimeout(readTimeout);
+
+      Map<String, String> headers = httpRequest.getHeaders();
+      if (headers != null && headers.size() > 0) {
+        Set<String> keySet = headers.keySet();
+        for (String key : keySet) {
+          conn.setRequestProperty(key, headers.get(key));
+        }
+      }
 
       conn.connect();
 

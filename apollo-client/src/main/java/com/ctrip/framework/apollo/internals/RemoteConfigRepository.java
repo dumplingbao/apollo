@@ -1,10 +1,8 @@
 package com.ctrip.framework.apollo.internals;
 
 import com.ctrip.framework.apollo.enums.ConfigSourceType;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -206,7 +204,9 @@ public class RemoteConfigRepository extends AbstractConfigRepository {
                 dataCenter, m_remoteMessages.get(), m_configCache.get());
 
         logger.debug("Loading config from {}", url);
-        HttpRequest request = new HttpRequest(url);
+        Map<String, String> headers = new HashMap<>();
+        headers.put("apiKey", System.getProperty("app.apiKey"));
+        HttpRequest request = new HttpRequest(url, headers);
 
         Transaction transaction = Tracer.newTransaction("Apollo.ConfigService", "queryConfig");
         transaction.addData("Url", url);
@@ -239,6 +239,15 @@ public class RemoteConfigRepository extends AbstractConfigRepository {
                 appId, cluster, m_namespace);
             statusCodeException = new ApolloConfigStatusCodeException(ex.getStatusCode(),
                 message);
+          }
+          if (ex.getStatusCode() == 403) {
+            String message = String.format(
+                    "apiKey is required or it is wrong - appId: %s, cluster: %s, namespace: %s, " +
+                            "please check whether the configs of apiKey in your project!",
+                    appId, cluster, m_namespace);
+            logger.error(message);
+            statusCodeException = new ApolloConfigStatusCodeException(ex.getStatusCode(),
+                    message);
           }
           Tracer.logEvent("ApolloConfigException", ExceptionUtil.getDetailMessage(statusCodeException));
           transaction.setStatus(statusCodeException);

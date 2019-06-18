@@ -6,6 +6,8 @@ public class OpenAppDTO extends BaseDTO {
 
   private String appId;
 
+  private String apiKey;
+
   private String orgId;
 
   private String orgName;
@@ -20,6 +22,14 @@ public class OpenAppDTO extends BaseDTO {
 
   public String getName() {
     return name;
+  }
+
+  public String getApiKey() {
+    return apiKey;
+  }
+
+  public void setApiKey(String apiKey) {
+    this.apiKey = apiKey;
   }
 
   public String getOrgId() {
@@ -67,6 +77,7 @@ public class OpenAppDTO extends BaseDTO {
     final StringBuilder sb = new StringBuilder("OpenAppDTO{");
     sb.append("name='").append(name).append('\'');
     sb.append(", appId='").append(appId).append('\'');
+    sb.append(", apiKey='").append(appId).append('\'');
     sb.append(", orgId='").append(orgId).append('\'');
     sb.append(", orgName='").append(orgName).append('\'');
     sb.append(", ownerName='").append(ownerName).append('\'');

@@ -18,6 +18,9 @@ public class AppModel {
   )
   private String appId;
 
+  @NotBlank(message = "apiKey cannot be blank")
+  private String apiKey;
+
   @NotBlank(message = "orgId cannot be blank")
   private String orgId;
 
@@ -43,6 +46,14 @@ public class AppModel {
 
   public void setAppId(String appId) {
     this.appId = appId;
+  }
+
+  public String getApiKey() {
+    return apiKey;
+  }
+
+  public void setApiKey(String apiKey) {
+    this.apiKey = apiKey;
   }
 
   public String getOrgId() {

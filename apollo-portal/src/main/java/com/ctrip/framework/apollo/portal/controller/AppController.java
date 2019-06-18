@@ -210,6 +210,7 @@ public class AppController {
     String appName = appModel.getName();
     String ownerName = appModel.getOwnerName();
     String orgId = appModel.getOrgId();
+    String apiKey = appModel.getApiKey();
     String orgName = appModel.getOrgName();
 
     return App.builder()
@@ -217,6 +218,7 @@ public class AppController {
         .name(appName)
         .ownerName(ownerName)
         .orgId(orgId)
+        .apiKey(apiKey)
         .orgName(orgName)
         .build();
 

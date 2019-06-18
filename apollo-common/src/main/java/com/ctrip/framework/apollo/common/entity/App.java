@@ -28,6 +28,9 @@ public class App extends BaseEntity {
   @Column(name = "AppId", nullable = false)
   private String appId;
 
+  @Column(name = "ApiKey", nullable = false)
+  private String apiKey;
+
   @Column(name = "OrgId", nullable = false)
   private String orgId;
 
@@ -54,6 +57,10 @@ public class App extends BaseEntity {
     return orgId;
   }
 
+  public String getApiKey() {
+    return apiKey;
+  }
+
   public String getOrgName() {
     return orgName;
   }
@@ -72,6 +79,10 @@ public class App extends BaseEntity {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public void setApiKey(String apiKey) {
+    this.apiKey = apiKey;
   }
 
   public void setOrgId(String orgId) {
@@ -93,6 +104,7 @@ public class App extends BaseEntity {
   public String toString() {
     return toStringHelper().add("name", name).add("appId", appId)
         .add("orgId", orgId)
+        .add("apiKey", apiKey)
         .add("orgName", orgName)
         .add("ownerName", ownerName)
         .add("ownerEmail", ownerEmail).toString();
@@ -115,8 +127,14 @@ public class App extends BaseEntity {
       return this;
     }
 
+
     public Builder orgId(String orgId) {
       app.setOrgId(orgId);
+      return this;
+    }
+
+    public Builder apiKey(String apiKey) {
+      app.setApiKey(apiKey);
       return this;
     }
 

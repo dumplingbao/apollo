@@ -108,6 +108,16 @@
                                 <small>(建议格式 xx-yy-zz 例:apollo-server)</small>
                             </div>
                         </div>
+                        <div class="form-group" valdr-form-group>
+                            <label class="col-sm-2 control-label">
+                                <apollorequiredfield></apollorequiredfield>
+                                apiKey</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="appApiKey" ng-model="viewApp.apiKey"
+                                       ng-disabled="!display.app.edit">
+                                <small>(建议UUID xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)</small>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">
                                 <apollorequiredfield></apollorequiredfield>

@@ -80,6 +80,7 @@ public class AppService {
     }
 
     managedApp.setName(app.getName());
+    managedApp.setApiKey(app.getApiKey());
     managedApp.setOrgId(app.getOrgId());
     managedApp.setOrgName(app.getOrgName());
     managedApp.setOwnerName(app.getOwnerName());

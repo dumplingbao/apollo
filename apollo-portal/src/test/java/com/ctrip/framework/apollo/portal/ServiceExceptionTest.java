@@ -70,6 +70,7 @@ public class ServiceExceptionTest extends AbstractUnitTest {
 		app.setAppId("someAppId");
 		app.setName("someName");
 		app.setOrgId("someOrgId");
+		app.setApiKey("someApiKey");
 		app.setOrgName("someOrgNam");
 		app.setOwnerName("someOwner");
 		return app;

@@ -15,6 +15,8 @@ public class AppDTO extends BaseDTO{
   )
   private String appId;
 
+  private String apiKey;
+
   private String orgId;
 
   private String orgName;
@@ -33,6 +35,14 @@ public class AppDTO extends BaseDTO{
 
   public String getAppId() {
     return appId;
+  }
+
+  public String getApiKey() {
+    return apiKey;
+  }
+
+  public void setApiKey(String apiKey) {
+    this.apiKey = apiKey;
   }
 
   public String getName() {

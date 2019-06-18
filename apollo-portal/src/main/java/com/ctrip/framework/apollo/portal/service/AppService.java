@@ -149,6 +149,7 @@ public class AppService {
     managedApp.setName(app.getName());
     managedApp.setOrgId(app.getOrgId());
     managedApp.setOrgName(app.getOrgName());
+    managedApp.setApiKey(app.getApiKey());
 
     String ownerName = app.getOwnerName();
     UserInfo owner = userService.findByUserId(ownerName);
