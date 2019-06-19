@@ -49,6 +49,10 @@ appService.service("ConfigService", ['$resource', '$q', function ($resource, $q)
         syntax_check_text: {
             method: 'POST',
             url: '/apps/:appId/envs/:env/clusters/:clusterName/namespaces/:namespaceName/syntax-check'
+        },
+        convert_properties_to_yml: {
+            method: 'POST',
+            url: '/apps/convertPropertiesToYml'
         }
     });
 
@@ -208,6 +212,18 @@ appService.service("ConfigService", ['$resource', '$q', function ($resource, $q)
                                            namespaceName: namespaceName
                                        },
                                        model, function (result) {
+                    d.resolve(result);
+
+                }, function (result) {
+                    d.reject(result);
+                });
+            return d.promise;
+        },
+
+        convert_properties_to_yml: function (content) {
+            var d = $q.defer();
+            config_source.convert_properties_to_yml({propertiesContent: content},
+                                       function (result) {
                     d.resolve(result);
 
                 }, function (result) {

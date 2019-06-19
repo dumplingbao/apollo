@@ -30,6 +30,7 @@ function directive($window, toastr, AppUtil, EventManager, PermissionService, Na
             //constants
             var namespace_view_type = {
                 TEXT: 'text',
+                YML: 'yml',
                 TABLE: 'table',
                 HISTORY: 'history',
                 INSTANCE: 'instance',
@@ -424,6 +425,8 @@ function directive($window, toastr, AppUtil, EventManager, PermissionService, Na
                 namespace.viewType = viewType;
                 if (namespace_view_type.TEXT == viewType) {
                     namespace.text = parseModel2Text(namespace);
+                } else if (namespace_view_type.YML == viewType) {
+                    parseModel2Yml(namespace);
                 } else if (namespace_view_type.TABLE == viewType) {
 
                 } else if (namespace_view_type.HISTORY == viewType) {
@@ -788,6 +791,23 @@ function directive($window, toastr, AppUtil, EventManager, PermissionService, Na
                     return parsePropertiesText(namespace);
                 }
 
+            }
+
+            function parseModel2Yml(namespace) {
+
+                if (namespace.items.length == 0) {
+                    namespace.itemCnt = 0;
+                    return "";
+                }
+
+                var propertiesContent = parsePropertiesText(namespace);
+
+                ConfigService.convert_properties_to_yml(propertiesContent).then(
+                    function (result) {
+                        namespace.text = result.ymlContent;
+                    }, function (result) {
+                        toastr.error(AppUtil.errorMsg(result), "转换失败");
+                    });
             }
 
             function parseNotPropertiesText(namespace) {

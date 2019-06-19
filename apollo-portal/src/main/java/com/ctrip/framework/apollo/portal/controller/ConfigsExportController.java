@@ -11,14 +11,12 @@ import com.ctrip.framework.apollo.portal.entity.model.NamespaceTextModel;
 import com.ctrip.framework.apollo.portal.service.ItemService;
 import com.ctrip.framework.apollo.portal.service.NamespaceService;
 import com.ctrip.framework.apollo.portal.util.ConfigToFileUtils;
+import com.ctrip.framework.apollo.portal.util.YmlPropertiesUtils;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -116,6 +114,38 @@ public class ConfigsExportController {
       ConfigToFileUtils.itemsToFile(res.getOutputStream(), fileItems);
     } catch (Exception e) {
       throw new ServiceException("export items failed:{}", e);
+    }
+  }
+
+  @PostMapping("/apps/convertPropertiesToYml")
+  @ResponseBody
+  public Properties convertPropertiesToYml(@RequestBody Properties properties) {
+    if (StringUtils.isNotBlank(properties.getPropertiesContent())) {
+      String ymlStr = YmlPropertiesUtils.properties2YmlByContent(properties.getPropertiesContent());
+      properties.setYmlContent(ymlStr);
+    }
+    return properties;
+  }
+
+  public static class Properties {
+
+    private String propertiesContent;
+    private String ymlContent;
+
+    public String getPropertiesContent() {
+      return propertiesContent;
+    }
+
+    public void setPropertiesContent(String propertiesContent) {
+      this.propertiesContent = propertiesContent;
+    }
+
+    public String getYmlContent() {
+      return ymlContent;
+    }
+
+    public void setYmlContent(String ymlContent) {
+      this.ymlContent = ymlContent;
     }
   }
 }
